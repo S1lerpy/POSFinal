@@ -1,0 +1,18 @@
+
+
+
+.xbuttonx {
+    -fx-background-color: transparent;
+    -fx-border-color: #FF0000;
+    -fx-border-width: 3px; /* Replacing 0.125em */
+    -fx-border-radius: 3px; /* Replacing 0.9375em */
+    -fx-text-fill: #FF0000; /* Text color */
+    -fx-cursor: hand; /* JavaFX equivalent for cursor: pointer */
+    -fx-font-family: "Segoe UI", "Helvetica", "Arial", sans-serif; /* Simplified font stack */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold; /* JavaFX uses bold instead of numerical weights */
+    -fx-padding: 2px 4px; /* Adjusted for readability */
+    -fx-alignment: center;
+    -fx-effect: none; /* No shadow initially */
+    -fx-transition: all 200ms ease-in-out;
+}

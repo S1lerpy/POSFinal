@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyPressed" prefHeight="850.0" prefWidth="1440.0" style="-fx-background-color: #2c2221;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+   <top>
+      <MenuBar prefWidth="1300.0" BorderPane.alignment="CENTER">
+         <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" text="Close" />
+         </Menu>
+         <Menu mnemonicParsing="false" text="Edit">
+            <MenuItem mnemonicParsing="false" text="Delete" />
+         </Menu>
+         <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" text="About" />
+         </Menu>
+      </MenuBar>
+   </top>
+   <bottom>
+      <HBox prefHeight="65.0" prefWidth="1339.0" spacing="10.0" style="-fx-background-color: #2c2221;" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="159.0" style="-fx-background-color: #c5ac94;" text="[F1 - New Order]" textFill="WHITE" HBox.hgrow="ALWAYS" />
+         <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="159.0" style="-fx-background-color: #c5ac94;" text="[F2 - Payment]" textFill="WHITE" />
+         <Button layoutX="189.0" layoutY="20.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="159.0" style="-fx-background-color: #c5ac94;" text="[F3 - Cancel Order]" textFill="WHITE" />
+         <Button layoutX="358.0" layoutY="20.0" mnemonicParsing="false" onAction="#actionManageProduct" prefHeight="64.0" prefWidth="159.0" style="-fx-background-color: #c5ac94;" text="[F4 - Manage Product]" textFill="WHITE" />
+         <Button fx:id="btnManageTable" layoutX="527.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageTable" prefHeight="64.0" prefWidth="159.0" style="-fx-background-color: #c5ac94;" text="[F5 - Manage Table]" textFill="WHITE" />
+         <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="159.0" style="-fx-background-color: #c5ac94;" text="[F6 - Sales Report]" textFill="WHITE" />
+         <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="159.0" style="-fx-background-color: #d99937;" text="[F7 - Logout]" textFill="WHITE" />
+      </HBox>
+   </bottom>
+   <left>
+      <VBox prefHeight="760.0" prefWidth="307.0" spacing="10.0" style="-fx-background-color: #2c2221;" BorderPane.alignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <VBox fx:id="chosenCoffeeCard" alignment="CENTER" prefHeight="736.0" prefWidth="287.0" styleClass="chosen-coffee-card">
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+            <stylesheets>
+               <URL value="@../css/style.css" />
+               <URL value="@../css/style.css" />
+            </stylesheets>
+            <ImageView fx:id="CoffeeImg" fitHeight="210.0" fitWidth="248.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/CaffeWhiteMochaSpanishLatte.png" />
+            </ImageView>
+            <HBox layoutX="10.0" layoutY="332.0" prefHeight="42.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="CoffeeNameLabel" prefHeight="34.0" prefWidth="199.0" text="Caffe White Mocha" textFill="#2c2221">
+                     <font>
+                        <Font name="Cambria Bold" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="42.0" prefWidth="300.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <children>
+                  <Label fx:id="CoffeePriceLabel" prefHeight="34.0" prefWidth="199.0" text="209.00" textAlignment="CENTER" textFill="#2c2221">
+                     <font>
+                        <Font name="Cambria Bold" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="287.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="39.0" prefWidth="165.0" text="Qty." textFill="#2c2221">
+                     <font>
+                        <Font name="Cambria Bold" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="quantityComboBox" prefHeight="35.0" prefWidth="151.0" promptText="1" styleClass="comboBox" stylesheets="@../css/style.css">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </ComboBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="421.0" prefHeight="60.0" prefWidth="287.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="165.0" text="Size" textFill="#2c2221">
+                     <font>
+                        <Font name="Cambria Bold" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="sizeComboBox" prefHeight="35.0" prefWidth="154.0" promptText="Small" styleClass="comboBox" stylesheets="@../css/style.css">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </ComboBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="300.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Button fx:id="addToCartButton" mnemonicParsing="false" prefHeight="32.0" prefWidth="207.0" stylesheets="@../css/style.css" text="Add to Cart" textFill="#2c2221">
+               <font>
+                  <Font name="Cambria Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="button" />
+                  <String fx:value="shadow" />
+               </styleClass>
+            </Button>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+         </VBox>
+         <Label fx:id="lblUsername" text="**" textFill="WHITE" />
+      </VBox>
+   </left>
+   <center>
+      <VBox alignment="CENTER" fillWidth="false" prefHeight="760.0" prefWidth="1074.0" BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
+         <children>
+
+            <HBox fx:id="haha" alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" prefWidth="889.0" spacing="5.0" style="-fx-background-color: #2c2221;">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../Images/barcode_scanner.png" />
+                  </image>
+               </ImageView>
+               <TextField fx:id="searchField" prefHeight="40.0" prefWidth="641.0" promptText="Enter Product" stylesheets="@../css/styles.css">
+                  <styleClass>
+                     <String fx:value="search-button" />
+                     <String fx:value="transparent" />
+                     <String fx:value="shadow" />
+                  </styleClass>
+                  <font>
+                     <Font name="Cambria Bold" size="18.0" />
+                  </font>
+               </TextField>
+               <Button fx:id="srchBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="164.0" stylesheets="@../css/styles.css" text="Search">
+                  <font>
+                     <Font name="SansSerif Bold" size="16.0" />
+                  </font>
+                  <styleClass>
+                     <String fx:value="search-box" />
+                     <String fx:value="search-button" />
+                  </styleClass>
+               </Button>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="710.0" prefWidth="803.0" styleClass="chosen-coffee-card" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@../css/styles.css" vbarPolicy="AS_NEEDED">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <content>
+                        <GridPane fx:id="grid" prefHeight="708.0" prefWidth="712.0" styleClass="transparent" stylesheets="@../css/styles.css">
+                           <padding>
+                              <Insets top="50.0" />
+                           </padding>
+                           <columnConstraints>
+                              <ColumnConstraints />
+                           </columnConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="760.0" prefWidth="357.0" style="-fx-background-color: #2c2221;" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <!-- Header Section -->
+            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="270.0" style="-fx-background-color: #c5ac94;" styleClass="chosen-coffee-card" stylesheets="@../css/styles.css">
+               <children>
+                  <Label alignment="TOP_LEFT" text="My Cart" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox fx:id="cartVBox" alignment="TOP_CENTER" prefHeight="591.0" prefWidth="304.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <!-- Placeholder for dynamically added cart items -->
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </right>
+</BorderPane>

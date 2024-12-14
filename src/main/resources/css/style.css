@@ -1,0 +1,84 @@
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 , 10.0);
+}
+
+#imageCircle {
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: #0097e6;
+    -fx-background-color: #fff;
+    -fx-background-radius: 50%; /* Makes it circular */
+    -fx-border-radius: 50%;    /* Ensures the border follows the circular shape */
+    -fx-padding: 0px;
+    -fx-pref-width: 100px;  /* Set the width */
+    -fx-pref-height: 100px; /* Set the height (equal to width for a circle) */
+}
+
+.chosen-coffee-card{
+    -fx-background-color: #C5AC94;
+    -fx-background-radius: 30;
+}
+
+.comboBox{
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-radius: 30;
+}
+
+.add-btn{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.chosen-cart-card {
+    -fx-background-color: #C5AC94;
+    -fx-background-radius: 100;
+}
+
+.product-item {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+.product-label {
+    -fx-font-family: "Cambria";
+    -fx-font-size: 14;
+    -fx-text-fill: #333333;
+    -fx-alignment: center;
+}
+
+
+
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: #1A1A1A;
+    -fx-border-width: 2px; /* Replacing 0.125em */
+    -fx-border-radius: 15px; /* Replacing 0.9375em */
+    -fx-text-fill: #3B3B3B; /* Text color */
+    -fx-cursor: hand; /* JavaFX equivalent for cursor: pointer */
+    -fx-font-family: "Segoe UI", "Helvetica", "Arial", sans-serif; /* Simplified font stack */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold; /* JavaFX uses bold instead of numerical weights */
+    -fx-padding: 16px 36px; /* Adjusted for readability */
+    -fx-alignment: center;
+    -fx-effect: none; /* No shadow initially */
+    -fx-transition: all 300ms ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #1A1A1A;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 8, 0, 0, 15);
+    -fx-translate-y: -2px;
+}
+
+.button:pressed {
+    -fx-effect: none; /* Remove shadow */
+    -fx-translate-y: 0;
+}
+
+.button:disabled {
+    -fx-opacity: 0.5; /* Simulate pointer-events: none */
+}
