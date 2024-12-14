@@ -68,11 +68,11 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" stylesheets="@../css/blackbutton.css" text="+" GridPane.columnIndex="1">
+                  <Button fx:id="addButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" stylesheets="@../css/blackbutton.css" text="+" GridPane.columnIndex="1">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font></Button>
-                  <Button layoutX="148.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" stylesheets="@../css/blackbutton.css" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button fx:id="minusButton" layoutX="148.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" stylesheets="@../css/blackbutton.css" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>

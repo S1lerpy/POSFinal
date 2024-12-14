@@ -112,7 +112,7 @@ public class DashboardController implements Initializable {
         coffees.add(coffee);
 
         coffee =new Coffee();
-        coffee.setName("SaltedCaramelEspressoBlend");
+        coffee.setName("Salted CaramelEspressoBlend");
         coffee.setPrice(230.00);
         coffee.setImgSrc("/Images/SaltedCaramelEspressoBlend.png");
         coffee.setColor("C5AC94");
@@ -133,7 +133,7 @@ public class DashboardController implements Initializable {
         coffees.add(coffee);
 
         coffee =new Coffee();
-        coffee.setName("ExpressoInfusedChai");
+        coffee.setName("EspressoInfusedChai");
         coffee.setPrice(180.00);
         coffee.setImgSrc("/Images/ExpressoInfusedChai.png");
         coffee.setColor("C5AC94");
@@ -258,26 +258,41 @@ public class DashboardController implements Initializable {
             double sizeMultiplier = switch (selectedSize) {
                 case "Medium" -> 1.2;
                 case "Large" -> 1.5;
-                default -> 1.0;
+                default -> 1.0; // Small
             };
             double finalPrice = basePrice * sizeMultiplier * selectedQuantity;
 
-            // Pass the coffee image path here
-            CartItem cartItem = new CartItem(
-                    selectedCoffee.getName(),
-                    selectedQuantity,
-                    selectedSize,
-                    finalPrice,
-                    selectedCoffee.getImgSrc()  // Include the image path
-            );
-            cart.add(cartItem);
+            // Check if item is already in cart
+            boolean itemExists = false;
+            for (CartItem cartItem : cart) {
+                if (cartItem.getCoffeeName().equals(selectedCoffee.getName()) && cartItem.getSize().equals(selectedSize)) {
+                    // If the item is in the cart, just update the quantity and price
+                    cartItem.setQuantity(cartItem.getQuantity() + selectedQuantity);
+                    cartItem.setPrice(cartItem.getPrice() + finalPrice);
+                    itemExists = true;
+                    break;
+                }
+            }
 
-            System.out.println("Item added to cart: " + cartItem.getCoffeeName());
+            // If item doesn't exist in cart, add it as a new item
+            if (!itemExists) {
+                CartItem cartItem = new CartItem(
+                        selectedCoffee.getName(),
+                        selectedSize,
+                        selectedQuantity,
+                        finalPrice,
+                        selectedCoffee.getImgSrc()
+                );
+                cart.add(cartItem);
+            }
+
+            System.out.println("Item added to cart: " + selectedCoffee.getName());
             System.out.println("Cart size: " + cart.size());
 
             updateCartDisplay(); // Refresh cart display
         }
     }
+
 
 
     public void setUsername(String username) {
@@ -327,6 +342,8 @@ public class DashboardController implements Initializable {
 
     private void updateCartDisplay() {
         cartVBox.getChildren().clear(); // Clear existing items
+
+        // Iterate through cart items and display each one
         for (int i = 0; i < cart.size(); i++) {
             CartItem cartItem = cart.get(i);
 
@@ -337,7 +354,7 @@ public class DashboardController implements Initializable {
                 ChosenCartCardController cardController = loader.getController();
 
                 // Pass the index and remove callback to the card
-                final int index = i; // Make 'i' final or effectively final by declaring it here
+                final int index = i;
                 cardController.setData(
                         cartItem.getCoffeeName(),
                         cartItem.getSize(),
@@ -356,58 +373,13 @@ public class DashboardController implements Initializable {
     }
 
 
+
     private void handleRemoveFromCart(int index) {
         cart.remove(index); // Remove item from the cart
         updateCartDisplay(); // Refresh the cart display
     }
 
-    @FXML
-    private void handleKeyPressed(KeyEvent event) {
-        System.out.println("Key pressed: " + event.getCode());
-        switch (event.getCode()) {
-            case F1:
-                System.out.println("New Order");
-                break;
-            case F2:
-                System.out.println("Payment Triggered.");
-                break;
-            case F3:
-                System.out.println("Cancel order.");
-                break;
-            case F4:
-                System.out.println("Manage products.");
-                try {
-                    openModalWindow("Products.fxml", "Manage Products");
-                } catch (Exception ex) {
 
-                }
-                break;
-            case F5:
-                System.out.println("Manage Table");
-                try {
-                    openModalWindow("Tables.fxml", "Manage Tables");
-                } catch (Exception ex) {
-                    System.out.println("" + ex.getMessage());
-                    ex.printStackTrace();
-                }
-                break;
-            case F6:
-                System.out.println("Sales Report");
-                break;
-            case F7:
-                try {
-                    openModalWindow("Lookup.fxml", "Product Lookup");
-                } catch (Exception ex) {
-                    System.out.println("" + ex.getMessage());
-                    ex.printStackTrace();
-                }
-                break;
-            case F8:
-                System.out.println("Logout.");
-                break;
-
-        }
-    }
 
 
 }

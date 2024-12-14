@@ -2,16 +2,16 @@ package model;
 
 public class CartItem {
     private String coffeeName;
-    private int quantity;
     private String size;
+    private int quantity;
     private double price;
-    private String imagePath;  // Add this field for the image
+    private String imagePath;
 
     // Constructor
-    public CartItem(String coffeeName, int quantity, String size, double price, String imagePath) {
+    public CartItem(String coffeeName, String size, int quantity, double price, String imagePath) {
         this.coffeeName = coffeeName;
-        this.quantity = quantity;
         this.size = size;
+        this.quantity = quantity;
         this.price = price;
         this.imagePath = imagePath;
     }
@@ -21,20 +21,39 @@ public class CartItem {
         return coffeeName;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setCoffeeName(String coffeeName) {
+        this.coffeeName = coffeeName;
     }
 
     public String getSize() {
         return size;
     }
 
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public double getPrice() {
         return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getImagePath() {
         return imagePath;
     }
-}
 
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+}

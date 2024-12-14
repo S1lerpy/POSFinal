@@ -1,11 +1,14 @@
 package model;
 
+import javafx.scene.image.Image;
+
 public class Coffee {
 
     private String name;
     private String imgSrc;
     private double price;
     private String color;
+    private Image img;
 
 
     public String getName() {
@@ -21,8 +24,9 @@ public class Coffee {
         return imgSrc;
     }
 
-    public void setImgSrc(String imgSrc) {
-        this.imgSrc = imgSrc;
+    // In Coffee class
+    public void setImgSrc(String img) {
+        this.imgSrc = img;
     }
 
     public double getPrice() {

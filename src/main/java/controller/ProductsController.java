@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 
+import java.sql.Blob; // Standard JDBC interface
 import com.perlas.JdbcDao;
 import com.perlas.Products;
 import javafx.collections.FXCollections;
@@ -50,9 +52,7 @@ public class ProductsController implements Initializable {
     private Button btnDelete;
     @FXML
     private TableView<Products> tableProducts;
-    @FXML
-    private TableColumn<Products, Integer> colId;
-    private TableColumn<Products, String> colName;
+
     @FXML
     private ImageView ivProduct;
     @FXML
@@ -81,7 +81,11 @@ public class ProductsController implements Initializable {
     private TableColumn<Products, String> colCategory;
     @FXML
     private TableColumn<Products, String> colStatus;
-
+    @FXML
+    private TableColumn<Products, Integer> colId;
+    @FXML
+    private TableColumn<Products, String> colName;
+    @FXML
     Scene fxmlFile;
     Parent root;
     Stage window;
@@ -115,16 +119,18 @@ public class ProductsController implements Initializable {
     @FXML
     private void editEntry(ActionEvent event) {
         Connection conn = jdbc.getConnection();
-        try{
+        try {
             Products product = tableProducts.getSelectionModel().getSelectedItem();
-            String query = "UPDATE products SET description = '" + etDescription.getText() + "', "
-                    + "price = '" + etPrice.getText() +"', category = '" +
-                    cbCategories.getSelectionModel().getSelectedItem() + "', status = '" + cbStatus.getSelectionModel().getSelectedItem() +
-                    "' WHERE id = '" + product.getId() + "'";
-            executeQuery(query);
+            String query = "UPDATE products SET description = ?, price = ?, category = ?, status = ? WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, etDescription.getText());
+            ps.setString(2, etPrice.getText());
+            ps.setString(3, cbCategories.getSelectionModel().getSelectedItem());
+            ps.setString(4, cbStatus.getSelectionModel().getSelectedItem());
+            ps.setInt(5, product.getId());
+            ps.executeUpdate();
             showProducts();
-
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -174,17 +180,24 @@ public class ProductsController implements Initializable {
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
-            Products products;
             while (rs.next()) {
-                products = new Products(rs.getInt("id"), rs.getString("barcode"), rs.getString("description"), rs.getString("price"), rs.getString("category"), rs.getBlob("image"), rs.getString("status"));
+                Products products = new Products(
+                        rs.getInt("id"),
+                        rs.getString("barcode"),
+                        rs.getString("description"),
+                        rs.getString("price"),
+                        rs.getString("category"),
+                        rs.getBlob("image"), // java.sql.Blob
+                        rs.getString("status")
+                );
                 productList.add(products);
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
         return productList;
     }
+
 
     private void executeQuery(String query) {
         Connection conn = jdbc.getConnection();
@@ -249,15 +262,18 @@ public class ProductsController implements Initializable {
     private void addListenerForTable() {
         tableProducts.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+                Blob imageBlob = newSelection.getImage(); // Use java.sql.Blob
+                if (imageBlob != null) {
+                    ivProduct.setImage(convertBlobToImage(imageBlob));
+                }
                 btnSave.setDisable(true);
                 btnUpdate.setDisable(false);
                 btnDelete.setDisable(false);
-//                tfCategoryName.setText(newSelection.getName());
+
                 etId.setText("" + newSelection.getId());
                 etBarcode.setText(newSelection.getBarcode());
                 etDescription.setText(newSelection.getDescription());
                 etPrice.setText(newSelection.getPrice());
-
                 cbCategories.getSelectionModel().select(newSelection.getCategory());
                 cbStatus.getSelectionModel().select(newSelection.getStatus());
 //                cbWeight.getSelectionModel().select(newSelection.get);
@@ -274,6 +290,19 @@ public class ProductsController implements Initializable {
             }
         });
     }
+
+    private Image convertBlobToImage(Blob blob) {
+        try {
+            InputStream is = blob.getBinaryStream(); // java.sql.Blob method
+            BufferedImage bufferedImage = ImageIO.read(is);
+            return SwingFXUtils.toFXImage(bufferedImage, null);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
 
     @FXML
     private void handleBrowseImage(ActionEvent event) {
